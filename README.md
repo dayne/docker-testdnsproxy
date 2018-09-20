@@ -12,22 +12,24 @@ Converted that and added some spice to make a docker-compose solution.
 * Runs a nginx proxy on port 127.0.0.1:80 that is magically configured against
   running docker services.
 
-### usage
+### Using the thing
 
 * git clone this repo
-* `docker-compose up`
-* configure resolver to use docker dns for resolving \*.test as 127.0.0.1
-  * On Mac:  `./osx-setup.sh` see if you get green happy
-  * On Windows: ???
-  * On Linux: ???
-* adjust your other docker-compose things 
-* launch those modified docker-compose things
-* check out what the proxy is seeing/offering: `./config_summary.sh`
-* step 3: PROFIT
+  * `git clone https://github.com/dayne/docker-testdnsproxy.git`
+* Launch the docker stuff `docker-compose up`
+* Configure resolver to use docker dns for resolving `*.test` to `127.0.0.1`
+  * On Mac:  `./osx-setup.sh` 
+  * On Windows: `???`
+  * On Linux: `???`
+* Adjust your other docker-compose things _details below_
+* Launch those modified docker-compose things
+* Bonus Points - Check out what the proxy is seeing & offering: 
+  `./config_summary.sh`
+* _step 3: PROFIT_
 
-### adjusting things
+### Adjusting your things
 
-Adjust your `docker-compose.yml` as needed.  Key bits are shown below to
+Adjust your `docker-compose.yml` as needed.  The key bits are shown below to
 cause a port 8080 to be exposed and show up as example.test
 
 ```
@@ -49,10 +51,9 @@ Create it using
 
 `docker network create nginx-proxy`
 
-Then you will need to append the following to all the related
-`docker-compose.yml` or into `docker-compose.local.yml` files.
-See https://github.com/jwilder/nginx-proxy/issues/729 for the 
-inspiring quotes.
+Then append the following networks block into your related `docker-compose.yml` or into `docker-compose.local.yml` files.
+
+See https://github.com/jwilder/nginx-proxy/issues/729 for the inspiring quotes.
 
 ```
 networks:
@@ -60,8 +61,3 @@ networks:
     external:
       name: nginx-proxy
 ```
-
-
-### linux
-
-https://gist.github.com/marek-saji/6808114
