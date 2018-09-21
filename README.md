@@ -1,6 +1,6 @@
-# docker-devdns
+# docker-testdnsproxy
 
-_Wildcard .test domain for localhost with a docker aware proxy!_
+Docker composition for a _wildcard .test domain to localhost with a docker aware web proxy!_
 
 Needing a development DNS for your docker stuff? Me too! 
 
