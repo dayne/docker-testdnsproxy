@@ -1,10 +1,12 @@
 # docker-devdns
 
-Needing a development DNS for your docker stuff? Me too!
+_Wildcard .test domain for localhost with a docker aware proxy!_
 
-https://adrianperez.org/improving-dev-environments-all-the-http-things/
+Needing a development DNS for your docker stuff? Me too! 
 
-Converted that and added some spice to make a docker-compose solution.
+This project inspired by [iMichael's give your dev environment an identity](https://medium.com/@iMichael/give-your-dev-environment-an-identity-490bc25c9dd1) post that reminded me .dev is OUT and .test is IN .. and pointed me in direction to find [Adrian Perez improving dev environments](https://adrianperez.org/improving-dev-environments-all-the-http-things/) post that described what I wanted i docker bits.
+
+Converted that inspiration into and some added some spice to make a docker-compose solution to give myself a docker aware wildcard `*.test` web proxy.
 
 ## Overview
 
@@ -12,7 +14,14 @@ Converted that and added some spice to make a docker-compose solution.
 * Runs a nginx proxy on port 127.0.0.1:80 that is magically configured against
   running docker services.
 
-### Using the thing
+## Using it
+Just three easy steps:
+
+2) compose up
+1) configure system to use the 127.0.0.1:53535 DNS that resolves `*.test to 127.0.0.1`
+3) profit
+
+### Actual details on the things
 
 * git clone this repo
   * `git clone https://github.com/dayne/docker-testdnsproxy.git`
@@ -25,7 +34,7 @@ Converted that and added some spice to make a docker-compose solution.
 * Launch those modified docker-compose things
 * Bonus Points - Check out what the proxy is seeing & offering: 
   `./config_summary.sh`
-* _step 3: PROFIT_
+* _PROFIT_
 
 ### Adjusting your things
 
