@@ -61,3 +61,24 @@ networks:
     external:
       name: nginx-proxy
 ```
+
+## DNS on Linux
+
+### Ubuntu 18.04
+
+Name resolution in Ubuntu has been a changing landscape the last few years.  Fortunately Pim on askubuntu figured out how to [set up local wildcard resolution in 18-04](https://askubuntu.com/questions/1029882/how-can-i-set-up-local-wildcard-127-0-0-1-domain-resolution-on-18-04). Steps below for making sure we take advantage of our docker dnsmasq image that does one thing only.
+
+add the `dns=dnsmasq` to the `/etc/NetworkManager/NetworkManager.conf`
+
+```
+sudo rm /etc/resolv.conf 
+sudo ln -s /var/run/NetworkManager/resolv.conf /etc/resolv.conf
+echo 'server=/test/127.0.0.1#53535' | sudo tee /etc/NetworkManager/dnsmasq.d/test-wildcard.conf
+sudo systemctl reload NetworkManager
+```
+
+Successful test should look like:
+```
+$ dig +short wibbles.test
+127.0.0.1
+```
