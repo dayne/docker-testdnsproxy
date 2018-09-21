@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # want to trace activity of this script while it runs? uncomment following line
 #set -x
@@ -46,26 +46,29 @@ function check_proxy() {
   fi
 }
 
+function setup_osx() {
+  if [ ! -d /etc/resolver ]; then
+    echo "${green}/etc/resolver/ missing - creating the directory${reset}"
+    sudo mkdir -v /etc/resolv
+  else
+    echo "/etc/resolver/ exists already - skipping creation"
+  fi
+
+  if [ ! -f /etc/resolver/test-wildcard ]; then
+    echo "${green}/etc/resolver/test-wildcard missing - copying out test copy${reset}"
+    sudo cp -v etc_resolver_test /etc/resolver/test-wildcard
+  else
+    echo "/etc/resolver/test-wildcard exists already -- nothing done"
+  fi
+}
+
 check_test_dns
 if [ $? -eq 0 ]; then
   echo "It appears /etc/resolver/test is already setup and working as we want."
   check_proxy
   exit 0
-fi
-
-if [ ! -d /etc/resolver ]; then
-  echo "${green}/etc/resolver/ missing - creating the directory${reset}"
-  sudo mkdir -v /etc/resolv
 else
-  echo "/etc/resolver/ exists already - skipping creation"
-fi
-
-if [ ! -f /etc/resolver/test ]; then
-  echo "${green}/etc/resolver/test missing - copying out test copy${reset}"
-  sudo cp -v etc_resolver_test /etc/resolver/test
-  echo ""
-else
-  echo "/etc/resolver/test exists already -- nothing done"
+  echo setup_osx
 fi
 
 echo "####  post setup test"
