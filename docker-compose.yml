@@ -1,26 +1,5 @@
 version: '3.7'
-# docker run -d \  
-# --name dnsmasq \
-#  --restart always \
-#  -p 53535:53/tcp \
-#  -p 53535:53/udp \
-#  --cap-add NET_ADMIN \
-#  andyshinn/dnsmasq \
-#  --command --address=/dev/127.0.0.1
 services:
-  dnsmasq:
-    image: andyshinn/dnsmasq
-    volumes:
-      - ./:/site
-    ports:
-      - '53535:53/tcp'
-      - '53535:53/udp'
-    #restart: always
-    cap_add:
-      - NET_ADMIN 
-    command: --address=/.test/127.0.0.1
-    environment: 
-      - JEKYLL_ENV=virtual
   nginx-proxy:
     image: jwilder/nginx-proxy
     ports:
